@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 2-4</title>
+    <style>
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Форма регистрации</h1>
+
+    <form id="registrationForm" method="POST">
+      <label for="login">Логин:</label><br />
+      <input type="text" id="login" name="login" /><br /><br />
+
+      <label for="password">Пароль:</label><br />
+      <input type="password" id="password" name="password" /><br /><br />
+
+      <label for="confirmPassword">Проверка пароля:</label><br />
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+      /><br /><br />
+
+      <label for="email">E-mail:</label><br />
+      <input type="text" id="email" name="email" /><br /><br />
+
+      <button type="submit">Отправить</button>
+    </form>
+
+    <p id="errorMessages" class="error"></p>
+
+    <script>
+      (function () {
+        'use strict';
+
+        document
+          .getElementById('registrationForm')
+          .addEventListener('submit', function (event) {
+            var login = document.getElementById('login').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword =
+              document.getElementById('confirmPassword').value;
+            var email = document.getElementById('email').value;
+            var errorMessages = '';
+
+            if (!login || !password || !confirmPassword || !email) {
+              errorMessages += 'Все поля должны быть заполнены.<br>';
+            }
+
+            if (password.length < 6 || password.length > 12) {
+              errorMessages += 'Пароль должен быть от 6 до 12 символов.<br>';
+            }
+
+            if (password !== confirmPassword) {
+              errorMessages += 'Пароли не совпадают.<br>';
+            }
+
+            if (email.indexOf('@') === -1) {
+              errorMessages += "E-mail должен содержать символ '@'.<br>";
+            }
+
+            if (errorMessages) {
+              event.preventDefault();
+              document.getElementById('errorMessages').innerHTML =
+                errorMessages;
+            }
+          });
+      })();
+    </script>
+  </body>
+</html>

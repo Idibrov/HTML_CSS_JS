@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 2-1</title>
+    <style>
+      img {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Кликните по картинке для увеличения/уменьшения</h1>
+
+    <img id="image" src="/apple.jpg" alt="apple" width="300" />
+
+    <script>
+      (function () {
+        'use strict';
+
+        var image = document.getElementById('image');
+        var isLarge = false;
+
+        image.addEventListener('click', function () {
+          if (isLarge) {
+            image.style.transform = 'scale(1)';
+          } else {
+            image.style.transform = 'scale(2)';
+          }
+          isLarge = !isLarge;
+        });
+      })();
+    </script>
+  </body>
+</html>

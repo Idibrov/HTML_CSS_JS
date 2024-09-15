@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 2-2</title>
+    <style>
+      #change {
+        color: black;
+        font-size: 16px;
+        font-weight: normal;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Управление стилями через JS</h1>
+
+    <p id="change">Этот текст изменится при наведении курсора на ссылку.</p>
+
+    <a href="#" id="styleChanger">Наведи курсор на меня</a>
+
+    <script>
+      (function () {
+        'use strict';
+
+        function ChangeStyle() {
+          var element = document.getElementById('change');
+          element.style.color = 'blue';
+          element.style.fontSize = '24px';
+          element.style.fontWeight = 'bold';
+          element.style.textDecoration = 'underline';
+        }
+
+        function ResetStyle() {
+          var element = document.getElementById('change');
+          element.style.color = 'black';
+          element.style.fontSize = '16px';
+          element.style.fontWeight = 'normal';
+          element.style.textDecoration = 'none';
+        }
+
+        var link = document.getElementById('styleChanger');
+        link.addEventListener('mouseover', ChangeStyle);
+        link.addEventListener('mouseout', ResetStyle);
+      })();
+    </script>
+  </body>
+</html>

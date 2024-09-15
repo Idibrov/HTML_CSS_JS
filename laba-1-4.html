@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lab_04</title>
+  </head>
+  <body>
+    <h1>Lab 04</h1>
+    <script>
+      (function () {
+        'use strict';
+
+        class NewClass {
+          constructor(title, url) {
+            this.title = title;
+            this.url = url;
+          }
+
+          show() {
+            document.write('Заголовок: ' + this.title + '<br>');
+            document.write('URL: ' + this.url + '<br>');
+          }
+        }
+
+        var myObject = new NewClass('Title', 'http://mail.ru');
+        myObject.show();
+      })();
+    </script>
+  </body>
+</html>
