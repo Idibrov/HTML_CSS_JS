@@ -20,8 +20,11 @@
         padding: 10px;
       }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
   </head>
   <body>
+    <div id="supportMessage"></div>
+
     <div class="container">
       <h2>SVG с помощью тега &lt;embed&gt;</h2>
       <embed src="1681779.svg" width="300" height="300" type="image/svg+xml" />
@@ -40,5 +43,18 @@
         <image href="1681779.svg" width="300" height="300" />
       </svg>
     </div>
+
+    <script>
+      window.onload = function () {
+        'use strict';
+
+        const supportMessage = document.getElementById('supportMessage');
+        if (Modernizr.svg) {
+          supportMessage.innerHTML = 'Есть поддержка SVG';
+        } else {
+          supportMessage.innerHTML = 'Нет поддержки SVG';
+        }
+      };
+    </script>
   </body>
 </html>
