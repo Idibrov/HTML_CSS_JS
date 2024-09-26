@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Мультимедиа</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="modernizr.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Мультимедиа</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">На главную</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Аудио</h2>
+        <audio controls>
+          <source src="audio/sample.mp3" type="audio/mp3" />
+          Ваш браузер не поддерживает аудио.
+        </audio>
+      </section>
+
+      <section>
+        <h2>Видео</h2>
+        <video width="320" height="240" controls>
+          <source src="video/sample.mp4" type="video/mp4" />
+          Ваш браузер не поддерживает видео.
+        </video>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2024 Иван Дибров</p>
+    </footer>
+
+    <script>
+      window.onload = function () {
+        'use strict';
+
+        (function () {
+          if (!Modernizr.audio) {
+            alert('Ваш браузер не поддерживает аудио элементы.');
+          }
+          if (!Modernizr.video) {
+            alert('Ваш браузер не поддерживает видео элементы.');
+          }
+        })();
+      };
+    </script>
+  </body>
+</html>

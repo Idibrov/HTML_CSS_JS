@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Форма с LocalStorage</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Контактная форма</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">На главную</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Добавить новый контакт</h2>
+        <form id="contactForm">
+          <label for="name">Имя:</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="phone">Телефон:</label>
+          <input type="tel" id="phone" name="phone" required />
+
+          <label for="age">Возраст:</label>
+          <input type="number" id="age" name="age" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+
+          <button type="button" id="addButton">Добавить контакт</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>Список контактов</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Имя</th>
+              <th>Телефон</th>
+              <th>Возраст</th>
+              <th>Email</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="contactList"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2024 Иван Дибров</p>
+    </footer>
+
+    <script>
+      'use strict';
+
+      if (
+        typeof window.localStorage !== 'undefined' ||
+        typeof window.sessionStorage !== 'undefined'
+      ) {
+        (function () {
+          document.addEventListener('DOMContentLoaded', function () {
+            const nameInput = document.getElementById('name');
+            const phoneInput = document.getElementById('phone');
+            const ageInput = document.getElementById('age');
+            const mailInput = document.getElementById('email');
+            const addButton = document.getElementById('addButton');
+            const contactList = document.getElementById('contactList');
+
+            function updateContactList() {
+              contactList.innerHTML = '';
+              const contacts =
+                JSON.parse(localStorage.getItem('contacts')) || [];
+
+              contacts.forEach((contact, index) => {
+                const row = document.createElement('tr');
+                const nameCell = document.createElement('td');
+                const phoneCell = document.createElement('td');
+                const ageCell = document.createElement('td');
+                const mailCell = document.createElement('td');
+                const actionCell = document.createElement('td');
+
+                nameCell.textContent = contact.name;
+                phoneCell.textContent = contact.phone;
+                ageCell.textContent = contact.age;
+                mailCell.textContent = contact.mail;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Удалить';
+                deleteButton.onclick = () => {
+                  removeContact(index);
+                };
+
+                actionCell.appendChild(deleteButton);
+                row.appendChild(nameCell);
+                row.appendChild(phoneCell);
+                row.appendChild(ageCell);
+                row.appendChild(mailCell);
+                row.appendChild(actionCell);
+                contactList.appendChild(row);
+              });
+            }
+
+            function addContact() {
+              const name = nameInput.value.trim();
+              const phone = phoneInput.value.trim();
+              const age = ageInput.value.trim();
+              const mail = mailInput.value.trim();
+
+              if (name && phone && age && mail) {
+                const contacts =
+                  JSON.parse(localStorage.getItem('contacts')) || [];
+                contacts.push({ name, phone, age, mail });
+                localStorage.setItem('contacts', JSON.stringify(contacts));
+                nameInput.value = '';
+                phoneInput.value = '';
+                ageInput.value = '';
+                mailInput.value = '';
+                updateContactList();
+              } else {
+                alert('Пожалуйста, заполните все поля.');
+              }
+            }
+
+            function removeContact(index) {
+              const contacts =
+                JSON.parse(localStorage.getItem('contacts')) || [];
+              contacts.splice(index, 1);
+              localStorage.setItem('contacts', JSON.stringify(contacts));
+              updateContactList();
+            }
+
+            addButton.onclick = addContact;
+
+            updateContactList();
+          });
+        })();
+      } else {
+        alert('Ваш браузер не поддерживает Web Storage.');
+      }
+    </script>
+  </body>
+</html>
